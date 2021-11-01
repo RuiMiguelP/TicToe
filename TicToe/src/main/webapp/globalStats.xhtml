@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"> 
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:h="http://java.sun.com/jsf/html"> 
+
+<h:head></h:head> 
+<body> 
+<ui:composition template="templates/common.xhtml">
+	<ui:define name="content">
+		<h:outputStylesheet library="css" name="contents.css" />
+		<h:outputText rendered="#{!globalStatsController.searchGlobalStats()}" value = "Games not played yet" />	
+			
+		<h:dataTable rendered="#{globalStatsController.searchGlobalStats()}" value="#{globalStatsController.calcGlobalStats()}" var="tempGame"
+			styleClass="demo-table" headerClass="demo-table-header" rowClasses="demo-table-odd-row,demo-table-even-row"
+			>
+			<h:column>
+				<f:facet name="header">#Human Victories</f:facet>
+				#{tempGame.victoryHumans}
+			
+			</h:column>
+		
+			<h:column>
+				<f:facet name="header">#Robot Victories</f:facet>
+				#{tempGame.victoryRobots}
+			</h:column>
+		
+			<h:column>
+				<f:facet name="header">Vertical wins (|)</f:facet>
+				#{tempGame.victoryVertical}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Horizontal wins (-)</f:facet>
+				#{tempGame.victoryHorizontal}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Forward Slash wins (/)</f:facet>
+				#{tempGame.victoryAntiDiagonal}
+			</h:column>
+			
+			<h:column>
+				<f:facet name="header">Backwards Slash wins (\)</f:facet>
+				#{tempGame.victoryDiagonal}
+			</h:column>
+			
+		</h:dataTable>
+		</ui:define>
+</ui:composition>
+
+</body> 
+</html>

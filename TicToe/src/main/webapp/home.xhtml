@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<h:body>
+	<ui:composition template="templates/common.xhtml">
+		<ui:define name="content">
+			<h:outputStylesheet library="css" name="contents.css" />
+			<div class="container">
+				<div class="section">
+					<h:form id="userMessages">
+						<div class="inputName">
+							<h:outputText value="#{indexBean.message1}" />
+							<br />
+							<h:inputText id="playerOne" required="true"
+								value="#{gameBean.playerOne}"
+								requiredMessage="Please fill in your name."
+								rendered="#{indexBean.disabled}">
+								<f:validateLength minimum="1" maximum="10" />
+								</h:inputText>
+							<br />
+							<h:outputText value="#{indexBean.playHuman}"
+								rendered="#{indexBean.humansTurn}" />
+							<h:outputText value="#{indexBean.resultHuman}"
+								rendered="#{gameBean.end}" />
+							<h:message for="playerOne" styleClass="error" />
+
+						</div>
+
+						<div class="inputName">
+							<h:outputText value="#{indexBean.message2}" />
+							<br />
+							<h:inputText id="playerTwo" required="true"
+								value="#{gameBean.playerTwo}"
+								requiredMessage="Please fill in your name."
+								rendered="#{indexBean.disabled}">
+								<f:validateLength minimum="1" maximum="10" />
+								</h:inputText>
+							<br />
+							<h:outputText value="#{indexBean.playRobot}"
+								rendered="#{indexBean.robotsTurn}" />
+							<h:outputText value="#{indexBean.resultRobot}"
+								rendered="#{gameBean.end}" />
+							<h:message for="playerTwo" styleClass="error" />
+
+						</div>
+						<h:commandLink id="letsPlay" styleClass="playLink"
+							action="#{gameBean.newGame()}" value="Let's Play!"
+							rendered="#{indexBean.disabled}">
+							<f:setPropertyActionListener target="#{indexBean.message1}"
+								value="#{gameBean.playerOne}" />
+							<f:setPropertyActionListener target="#{indexBean.message2}"
+								value="#{gameBean.playerTwo}" />
+							<f:setPropertyActionListener target="#{indexBean.disabled}"
+								value="#{false}" />
+							<f:ajax execute="@form" render="@form parentImages" />
+						</h:commandLink>
+					</h:form>
+				</div>
+
+				<h:panelGroup id="parentImages" styleClass="section" layout="block">
+					<h:panelGroup rendered="#{gameBean.newGame}">
+						<h:form id="images" prependId="false">
+							<h:panelGrid id="gameBoard" columns="3" styleClass="playing-area"
+								columnClasses="first-column, second-column, third-column"
+								rowClasses="first-row, second-row, third-row">
+
+								<h:commandLink id="btn0" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="0,0" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['0,0']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn1" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="0,1" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['0,1']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn2" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="0,2" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['0,2']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn3" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="1,0" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['1,0']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn4" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="1,1" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['1,1']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn5" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="1,2" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['1,2']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn6" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="2,0" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['2,0']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn7" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="2,1" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['2,1']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+								<h:commandLink id="btn8" action="#{gameBean.showSymbol()}"
+									disabled="#{gameBean.end}">
+									<f:setPropertyActionListener target="#{gameBean.buttonIndex}"
+										value="2,2" />
+									<h:graphicImage styleClass="button"
+										value="#{gameBean.buttonId['2,2']}" />
+									<f:ajax execute="@form" render="@form userMessages" />
+								</h:commandLink>
+
+							</h:panelGrid>
+							<div id="rematchButton">
+								<h:commandLink styleClass="playLink"
+									action="#{indexBean.newGame()}" value="Let's Play Again!"
+									rendered="#{gameBean.newGame}">
+									<f:setPropertyActionListener target="#{gameBean.newGame}"
+										value="#{false}" />
+								</h:commandLink>
+							</div>
+
+						</h:form>
+
+					</h:panelGroup>
+
+
+				</h:panelGroup>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+
+</h:body>
+
+</html>

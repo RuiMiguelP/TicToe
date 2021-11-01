@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html">
+
+<h:head></h:head>
+<body>
+	<ui:composition template="templates/common.xhtml">
+		<ui:define name="content">
+			<h:outputStylesheet library="css" name="contents.css" />
+			<div class="container">
+
+				<h:outputText
+					rendered="#{!globalStatsController.searchGlobalStats()}"
+					value="Games not played yet" />
+				<h:form rendered="#{statsBean.searchPlayerStats()}">
+					<h:message for="player_name" styleClass="error" />
+					<br />
+		Player Name: <h:inputText id="player_name"
+						value="#{statsBean.playerName}" label="Player name"
+						required="true" requiredMessage="Fill player field.">
+
+						<f:validateLength minimum="1" maximum="10" />
+					</h:inputText>
+
+					<br />
+					<h:panelGroup class="buttonsPlayer">
+						<h:commandButton styleClass="searchForm" value="Search"
+							action="#{statsBean.searchStats()}" />
+
+					</h:panelGroup>
+				</h:form>
+
+				<div class="section" id="playerStatsTable">
+
+					<h:dataTable rendered="#{statsBean.searchPlayerStats()}"
+						value="#{statsBean.viewStatsPlayer()}" var="tempGame"
+						styleClass="demo-table" headerClass="demo-table-header"
+						rowClasses="demo-table-odd-row,demo-table-even-row">
+
+						<h:column>
+							<f:facet name="header">Game</f:facet>
+				#{tempGame.playerOne.userName} <h:outputText value=" VS "/> #{tempGame.playerTwo.userName}
+			</h:column>
+
+						<h:column>
+							<f:facet name="header">Winner</f:facet>
+				#{tempGame.playerWinner.userName}
+			</h:column>
+
+						<h:column>
+							<f:facet name="header">Gameplay Time (Seconds)</f:facet>
+				#{tempGame.durationGame}
+			</h:column>
+
+						<h:column styleClass="finalBoardRow">
+							<f:facet name="header">Final Board</f:facet>
+							<div class="boardRow">
+								<ui:repeat
+									value="#{statsBean.viewFinalBoard(tempGame.board, 0)}"
+									var="tempBoard">
+									<h:graphicImage styleClass="finalImage" value="#{tempBoard}" />
+								</ui:repeat>
+							</div>
+							<div class="boardRow">
+								<ui:repeat
+									value="#{statsBean.viewFinalBoard(tempGame.board, 1)}"
+									var="tempBoard1">
+									<h:graphicImage styleClass="finalImage" value="#{tempBoard1}" />
+								</ui:repeat>
+							</div>
+							<div class="boardRow">
+								<ui:repeat
+									value="#{statsBean.viewFinalBoard(tempGame.board, 2)}"
+									var="tempBoard2">
+									<h:graphicImage styleClass="finalImage" value="#{tempBoard2}" />
+								</ui:repeat>
+							</div>
+						</h:column>
+
+					</h:dataTable>
+				</div>
+			</div>
+
+		</ui:define>
+	</ui:composition>
+</body>
+</html>
